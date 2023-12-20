@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Dialog, { open_dialog } from "./lib/Dialog.svelte"
 	import { shuffle, type Item } from "./utils"
 	import Header from "./lib/Header.svelte"
 	import Menu from "./lib/Menu.svelte"
@@ -15,12 +14,8 @@
 	let items: Item[] = original_items
 
 	function confirm_delete_item(item: Item) {
-		open_dialog({
-			confirm: { text: "Yes", action: () => delete_item(item) },
-			cancel: { text: "No", action: () => {} },
-			text: "Do you really want to delete the item?",
-			modal: true,
-		})
+		const confirm = window.confirm("Do you really want to delete the item?")
+		if (confirm) delete_item(item)
 	}
 
 	function delete_item(item: Item) {
@@ -29,11 +24,10 @@
 	}
 
 	function open_shuffle_modal() {
-		open_dialog({
-			confirm: { text: "Ok", action: shuffle_items },
-			text: "This will shuffle the items in a random order.",
-			modal: true,
-		})
+		const confirm = window.confirm(
+			"This will shuffle the items in a random order.",
+		)
+		if (confirm) shuffle_items()
 	}
 
 	function shuffle_items() {
@@ -41,19 +35,14 @@
 	}
 
 	function confirm_create_items() {
-		open_dialog({
-			confirm: { text: "Sure", action: () => (items = original_items) },
-			cancel: { text: "No thanks", action: () => {} },
-			text: "There are no items left. Do you want to create new items?",
-		})
+		const confirm = window.confirm(
+			"There are no items left. Do you want to create new items?",
+		)
+		if (confirm) items = original_items
 	}
 
 	function alert_rotate() {
-		open_dialog({
-			confirm: { text: "Ok", action: () => {} },
-			cancel: null,
-			text: "This feature is not implemented yet",
-		})
+		window.alert("This feature is not implemented yet")
 	}
 </script>
 
@@ -64,5 +53,3 @@
 
 	<Items {items} {confirm_delete_item} />
 </main>
-
-<Dialog />
