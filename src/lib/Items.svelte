@@ -3,7 +3,7 @@
 	import Fa from "svelte-fa"
 	import { flip } from "svelte/animate"
 	import { fade } from "svelte/transition"
-	import type { Item } from "../utils"
+	import type { Item } from "./types"
 
 	export let confirm_delete_item: (item: Item) => void
 	export let items: Item[] = []
@@ -16,10 +16,12 @@
 			transition:fade={{ duration: 200 }}
 			animate:flip={{ duration: 200 }}
 		>
-			<div class="img-wrapper">
-				<img src={item.source} alt="random resource from unsplash" />
-			</div>
-			<button on:click={() => confirm_delete_item(item)} aria-label="delete">
+			<img src={item.source} alt="random resource from unsplash" />
+			<button
+				class="delete"
+				on:click={() => confirm_delete_item(item)}
+				aria-label="delete"
+			>
 				<Fa icon={faTrashAlt} />
 			</button>
 		</li>
@@ -27,11 +29,25 @@
 </ul>
 
 <style>
-	.item {
-		position: relative;
+	.items {
+		width: min(95vw, 80rem);
+		margin-inline: auto;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
 	}
 
-	.item button {
+	.item {
+		position: relative;
+		width: min(300px, 95vw);
+		aspect-ratio: 3/2;
+		overflow: hidden;
+		margin-bottom: 0.25rem;
+		border-radius: 0.75rem;
+		border-top-right-radius: 0rem;
+	}
+
+	button.delete {
 		position: absolute;
 		top: 0.5rem;
 		right: 0.5rem;
@@ -45,29 +61,7 @@
 		transition: background-color 100ms;
 	}
 
-	.item button:focus-visible,
-	.item button:hover {
+	button.delete:is(:focus-visible, :hover) {
 		background-color: #000a;
-	}
-
-	.img-wrapper {
-		width: 300px;
-		height: 200px;
-		overflow: hidden;
-		margin-bottom: 0.25rem;
-		border-radius: 0.75rem;
-		border-top-right-radius: 0rem;
-	}
-
-	.items {
-		width: min(95vw, 80rem);
-		margin-inline: auto;
-		display: flex;
-		flex-wrap: wrap;
-		gap: 1rem;
-	}
-
-	img {
-		display: block;
 	}
 </style>

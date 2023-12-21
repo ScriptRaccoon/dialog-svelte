@@ -20,7 +20,7 @@
 		text: "",
 	}
 
-	export function open_dialog(options: Partial<Dialog_State>) {
+	export function open_dialog(options: Partial<Dialog_State>): void {
 		const all_options = { ...DEFAULT_STATE, ...options }
 		dialog_state.set(all_options)
 
@@ -33,33 +33,33 @@
 		visible.set(true)
 	}
 
-	export function close_dialog() {
+	export function close_dialog(): void {
 		visible.set(false)
 		dialog.addEventListener("transitionend", _close, { once: true })
 	}
 
-	function _close() {
+	function _close(): void {
 		dialog_state.set(null)
 		dialog?.close()
 	}
 </script>
 
 <script lang="ts">
-	function confirm() {
+	function confirm(): void {
 		if ($dialog_state?.confirm) {
 			$dialog_state.confirm.action()
 		}
 		close_dialog()
 	}
 
-	function cancel() {
+	function cancel(): void {
 		if ($dialog_state?.cancel) {
 			$dialog_state.cancel.action()
 		}
 		close_dialog()
 	}
 
-	function handle_keydown(e: KeyboardEvent) {
+	function handle_keydown(e: KeyboardEvent): void {
 		if (e.key === "Escape" && $dialog_state?.modal) {
 			e.preventDefault()
 			cancel()
@@ -130,10 +130,6 @@
 	dialog:focus-visible {
 		outline: 0.15rem solid white;
 		outline-offset: 0.2rem;
-	}
-
-	button {
-		outline-color: var(--btn-color);
 	}
 
 	menu {

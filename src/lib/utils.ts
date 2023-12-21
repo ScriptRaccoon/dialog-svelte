@@ -8,8 +8,3 @@ export function shuffle<T>(array: T[]): T[] {
 
 	return copy
 }
-
-export type Item = {
-	source: string
-	id: string
-}

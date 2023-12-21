@@ -35,6 +35,14 @@ button:focus-visible {
 	padding: 0.4rem 0.8rem;
 }
 
+dialog .button {
+	outline-color: var(--btn-color);
+}
+
 ul {
 	list-style: none;
+}
+
+img {
+	display: block;
 }
