@@ -17,7 +17,7 @@
 		confirm: { text: "Ok", action: () => {} },
 		cancel: { text: "Cancel", action: () => {} },
 		modal: false,
-		text: "Do you want to perform this action?",
+		text: "",
 	}
 
 	export function open_dialog(options: Partial<Dialog_State>) {
@@ -48,17 +48,26 @@
 	function confirm() {
 		if ($dialog_state?.confirm) {
 			$dialog_state.confirm.action()
-			close_dialog()
 		}
+		close_dialog()
 	}
 
 	function cancel() {
 		if ($dialog_state?.cancel) {
 			$dialog_state.cancel.action()
-			close_dialog()
+		}
+		close_dialog()
+	}
+
+	function handle_keydown(e: KeyboardEvent) {
+		if (e.key === "Escape" && $dialog_state?.modal) {
+			e.preventDefault()
+			cancel()
 		}
 	}
 </script>
+
+<svelte:window on:keydown={handle_keydown} />
 
 <dialog
 	bind:this={dialog}
