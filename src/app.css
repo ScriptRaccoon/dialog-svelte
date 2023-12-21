@@ -38,3 +38,7 @@ button:focus-visible {
 ul {
 	list-style: none;
 }
+
+img {
+	display: block;
+}

@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { shuffle, type Item } from "./utils"
+	import { shuffle } from "./lib/utils"
+	import { type Item } from "./lib/types"
 	import Header from "./lib/Header.svelte"
 	import Menu from "./lib/Menu.svelte"
 	import Items from "./lib/Items.svelte"
